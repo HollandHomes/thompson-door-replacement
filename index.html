@@ -251,7 +251,7 @@
             <!-- Credit Card Toggle -->
             <div class="mb-4 flex items-center justify-end border-b border-indigo-200 pb-4">
                 <label class="flex items-center cursor-pointer">
-                    <input type="checkbox" id="use-credit-card" class="h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <input type="checkbox" id="use-credit-card" class="h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
                     <span class="ml-2 text-sm font-medium text-gray-700">Pay with Credit Card (Adds 4% Bank Fee)</span>
                 </label>
             </div>
@@ -541,18 +541,15 @@
             // 2. Start Payment (30% of Labor)
             let depositStart = laborTotal * 0.30;
             
-            // 3. Balance (70% of Labor)
-            let finalBalance = laborTotal * 0.70;
-
             // Handle Credit Card Fee Distribution
-            // If paying with CC, the fee increases the TOTAL. 
-            // We apply the fee proportionately to each payment stage or just add it to the first?
-            // Standard practice: Apply fee proportionately to each charge.
             if (elCC.checked) {
                 depositMaterials = depositMaterials * (1 + CC_FEE_RATE);
                 depositStart = depositStart * (1 + CC_FEE_RATE);
-                finalBalance = finalBalance * (1 + CC_FEE_RATE);
             }
+            
+            // 3. Balance (Everything Else)
+            // Use subtraction to avoid floating point rounding errors
+            let finalBalance = grandTotal - depositMaterials - depositStart;
 
             // Update UI
             displayTotal.innerText = fmt(grandTotal);
