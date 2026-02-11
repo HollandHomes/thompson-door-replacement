@@ -1,1 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Proposal - Holland Family Home Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        canvas {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background-color: #f9fafb;
+            cursor: crosshair;
+        }
+        .option-card {
+            transition: all 0.2s ease;
+        }
+        .option-card:hover {
+            border-color: #6366f1;
+            background-color: #f5f7ff;
+        }
+        @media print {
+            body { background-color: white; padding: 0; }
+            #proposal-content { box-shadow: none; width: 100%; max-width: none; margin: 0; padding: 0; }
+            button, .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .option-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-10">
 
+    <div id="proposal-content" class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-6 sm:p-10">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Holland Family Home Services, Inc.</h1>
+            <p class="text-md sm:text-lg text-gray-600 mt-2">70 Copperhead Trail, Murphy, NC • 828-541-2442 • TheHollandSeven@gmail.com</p>
+            <hr class="my-6 border-gray-300">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 uppercase">Project Proposal</h2>
+        </header>
+
+        <section class="prose max-w-none text-gray-700">
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <p class="mb-1 font-bold">Project Location:</p>
+                    <p class="italic text-gray-500">Kay Thompson</p>
+                    <p class="italic text-gray-500">365 Brasstown Hills</p>
+                    <p class="italic text-gray-500">Brasstown, NC</p>
+                </div>
+                <div class="text-right">
+                    <p class="mb-1 font-bold">Date of Issue:</p>
+                    <p id="current-date-display">February 11, 2026</p>
+                    <p class="mt-2 font-bold text-indigo-600">Quote ID: HF-260211-KT</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold mt-8 mb-4">Project Summary</h3>
+            <p class="mb-6">This proposal outlines the optional services available for your property. Please select the services you wish to move forward with below. Note that the door installation involves replacing sliding glass units with French doors, which requires modifying the rough openings and exterior trim to accommodate the new door dimensions.</p>
+        </section>
+
+        <!-- PROJECT SELECTION SECTION -->
+        <div class="space-y-6">
+            <h4 class="text-lg font-bold text-gray-800 border-b border-gray-300 pb-2">Select Your Services</h4>
+            
+            <!-- Service 1: Exterior Wash -->
+            <div class="option-card p-5 bg-white rounded-lg shadow-sm border border-gray-200">
+                <label class="flex items-start cursor-pointer">
+                    <input type="checkbox" id="srv-powerwash" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
+                    <span class="ml-4 flex-1">
+                        <span class="text-lg font-semibold text-gray-900 block">Exterior Soft Wash & Deck Restoration</span>
+                        <span class="text-gray-600 text-sm block mt-1">Soft wash cabin exterior (protecting wood grain) and pressure wash deck floorboards and railings.</span>
+                        <span class="text-lg font-bold text-gray-700 mt-2 block">$850.00</span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Service 2: Exterior Windows -->
+            <div class="option-card p-5 bg-white rounded-lg shadow-sm border border-gray-200">
+                <label class="flex items-start cursor-pointer">
+                    <input type="checkbox" id="srv-ext-windows" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
+                    <span class="ml-4 flex-1">
+                        <span class="text-lg font-semibold text-gray-900 block">Exterior Window Cleaning</span>
+                        <span class="text-gray-600 text-sm block mt-1">Clean exterior glass of remaining house windows (including high gable glass).</span>
+                        <span class="text-lg font-bold text-gray-700 mt-2 block">$325.00</span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Service 3: Interior Windows -->
+            <div class="option-card p-5 bg-white rounded-lg shadow-sm border border-gray-200">
+                <label class="flex items-start cursor-pointer">
+                    <input type="checkbox" id="srv-int-windows" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
+                    <span class="ml-4 flex-1">
+                        <span class="text-lg font-semibold text-gray-900 block">Interior Window Cleaning</span>
+                        <span class="text-gray-600 text-sm block mt-1">Clean interior glass surfaces, wipe sills, and vacuum tracks.</span>
+                        <span class="text-lg font-bold text-gray-700 mt-2 block">$250.00</span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Service 4: Door Replacement Project -->
+            <div class="option-card p-5 bg-indigo-50 rounded-lg shadow-sm border-2 border-indigo-200">
+                <label class="flex items-start cursor-pointer">
+                    <input type="checkbox" id="srv-door-labor" checked class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="toggleDoorOptions()">
+                    <span class="ml-4 flex-1">
+                        <span class="text-lg font-bold text-indigo-900 block">Door Replacement & Installation (3 Units)</span>
+                        <div class="text-gray-700 text-sm mt-2 space-y-2">
+                            <p><strong>Scope:</strong> Removal of 3 sliding doors, modification of rough openings to fit new units, installation of French Doors, weatherproofing, and custom Pine exterior trim.</p>
+                            <p class="text-blue-600 bg-blue-50 p-2 rounded border border-blue-200 text-xs font-semibold">
+                                *Note: Installation includes necessary framing adjustments and trim work to ensure proper fit and finish for the new door style.
+                            </p>
+                        </div>
+                        <span class="text-lg font-bold text-gray-700 mt-2 block">$4,500.00 <span class="text-xs font-normal text-gray-500">(Labor & Rough Materials)</span></span>
+                    </span>
+                </label>
+
+                <!-- Nested Door Selection -->
+                <div id="door-selection-container" class="mt-6 pl-4 border-l-2 border-indigo-300 ml-2">
+                    
+                    <!-- DOORS -->
+                    <p class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-3">1. Select Door Units (Required)</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectDoor('A')">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="door_choice" id="door-option-a" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 flex-1">
+                                    <span class="font-semibold text-gray-800">Option A: Jeld-Wen (Steel)</span>
+                                    <span class="text-xs text-gray-500 block">Premium Steel Construction, White.</span>
+                                    <div class="mt-1 text-xs text-blue-600 hover:underline">
+                                         <a href="https://www.lowes.com/pd/JELD-WEN-Blinds-Between-The-Glass-Arctic-White-Steel-Right-Hand-Inswing-Double-Door-French-Patio-Door-Common-72-in-x-80-in-Actual-71-5-in-x-79-5625-in/50248803" target="_blank" onclick="event.stopPropagation()">View Specs</a>
+                                    </div>
+                                </span>
+                                <span id="display-price-door-a" class="font-bold text-gray-700">$0.00</span>
+                            </label>
+                        </div>
+
+                        <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectDoor('B')">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="door_choice" id="door-option-b" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 flex-1">
+                                    <span class="font-semibold text-gray-800">Option B: MMI Door (Fiberglass Upgrade)</span>
+                                    <span class="text-xs text-gray-500 block">Primed Fiberglass (Dent Resistant). Includes internal blinds.</span>
+                                    <div class="mt-1 text-xs text-blue-600 hover:underline">
+                                        <a href="https://www.lowes.com/pd/MMI-DOOR-Internal-Mini-Blinds-Blinds-Between-The-Glass-Fiberglass-Left-Hand-Inswing-Double-Door-Center-Hinged-Patio-Door-with-Screen-Common-72-in-x-80-in-Actual-75-in-x-81-75-in/1000343811" target="_blank" onclick="event.stopPropagation()">View Specs</a>
+                                    </div>
+                                </span>
+                                <span id="display-price-door-b" class="font-bold text-gray-700">$0.00</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- LOCKSETS -->
+                    <p class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-3">2. Select Locksets (Supply & Install)</p>
+                    <div class="space-y-3">
+                         <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectLock('A')">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="lock_choice" id="lock-option-a" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 flex-1">
+                                    <span class="font-semibold text-gray-800">Satin Nickel (Traditional)</span>
+                                    <span class="text-xs text-gray-500 block">Kwikset Signature Series "Montara"</span>
+                                    <span class="text-xs text-gray-500 block">Includes Installation Labor</span>
+                                </span>
+                                <span id="display-price-lock-a" class="font-bold text-gray-700">$0.00</span>
+                            </label>
+                        </div>
+
+                         <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectLock('B')">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="lock_choice" id="lock-option-b" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 flex-1">
+                                    <span class="font-semibold text-gray-800">Matte Black (Modern)</span>
+                                    <span class="text-xs text-gray-500 block">Kwikset Signature Series "San Clemente"</span>
+                                    <span class="text-xs text-gray-500 block">Includes Installation Labor</span>
+                                </span>
+                                <span id="display-price-lock-b" class="font-bold text-gray-700">$0.00</span>
+                            </label>
+                        </div>
+                        
+                         <!-- No Locks Option -->
+                         <div class="p-3 bg-gray-50 rounded border border-gray-200 cursor-pointer" onclick="selectLock('NONE')">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="lock_choice" id="lock-option-none" class="h-4 w-4 text-gray-400 focus:ring-gray-400">
+                                <span class="ml-3 flex-1">
+                                    <span class="font-medium text-gray-600">No New Hardware</span>
+                                    <span class="text-xs text-gray-500 block">Client will supply own hardware.</span>
+                                </span>
+                                <span class="font-bold text-gray-500">$0.00</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Service 5: Painting Service -->
+            <div class="option-card p-5 bg-white rounded-lg shadow-sm border border-gray-200">
+                <label class="flex items-start cursor-pointer">
+                    <input type="checkbox" id="srv-painting" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="togglePaintingOptions()">
+                    <span class="ml-4 flex-1">
+                        <span class="text-lg font-semibold text-gray-900 block">Door Painting Service (3 Units)</span>
+                        <span class="text-gray-600 text-sm block mt-1">Professional finishing of the 3 new door units and exterior trim. Includes prep, prime (if needed), and two finish coats.</span>
+                        <div id="painting-options" class="mt-3 hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Desired Color / Code:</label>
+                            <input type="text" placeholder="e.g. Match Existing Brown, SW 7005" class="w-full sm:w-1/2 p-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <span class="text-lg font-bold text-gray-700 mt-2 block">$900.00</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <section class="prose max-w-none text-gray-700 mt-10">
+            <h3 class="text-xl sm:text-2xl font-bold mt-8 mb-4">Total Investment Summary</h3>
+        </section>
+
+        <div class="mt-6 p-6 bg-indigo-50 rounded-lg shadow-md">
+            
+            <!-- Cost Breakdown -->
+            <div class="mb-6 pb-6 border-b border-indigo-200 text-sm space-y-3">
+                <h4 class="font-bold text-gray-700 uppercase text-xs tracking-wider mb-2">Full Disclosure Cost Breakdown</h4>
+                
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Services & Materials Subtotal:</span>
+                    <span class="font-semibold text-gray-800" id="breakdown-subtotal">$0.00</span>
+                </div>
+                
+                <div class="flex justify-between" id="row-tax">
+                    <span class="text-gray-600">NC State & Local Tax (7% on Materials):</span>
+                    <span class="font-semibold text-gray-800" id="breakdown-tax">$0.00</span>
+                </div>
+                
+                <div class="flex justify-between" id="row-delivery">
+                    <span class="text-gray-600">Material Delivery Fee:</span>
+                    <span class="font-semibold text-gray-800" id="breakdown-delivery">$0.00</span>
+                </div>
+                
+                <div class="flex justify-between hidden" id="row-cc-fee">
+                    <span class="text-gray-600">Credit Card Processing Fee (4%):</span>
+                    <span class="font-semibold text-gray-800" id="breakdown-cc">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Credit Card Toggle -->
+            <div class="mb-4 flex items-center justify-end border-b border-indigo-200 pb-4">
+                <label class="flex items-center cursor-pointer">
+                    <input type="checkbox" id="use-credit-card" class="h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="ml-2 text-sm font-medium text-gray-700">Pay with Credit Card (Adds 4% Bank Fee)</span>
+                </label>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+                <div>
+                    <h4 class="text-xl font-bold text-indigo-800 mb-1 sm:mb-0">Grand Total:</h4>
+                </div>
+                <span id="total-price" class="text-3xl font-extrabold text-indigo-800">$0.00</span>
+            </div>
+        </div>
+
+        <section class="prose max-w-none text-gray-700 mt-8">
+            <h3 class="text-xl sm:text-2xl font-bold mt-8 mb-4">Payment Terms & Schedule</h3>
+            <p class="mb-4 text-sm bg-yellow-50 p-3 border-l-4 border-yellow-400">
+                <strong>Note:</strong> Due to the custom nature of the door units, materials (plus associated tax & delivery) must be paid in full prior to ordering.
+            </p>
+
+            <div class="grid sm:grid-cols-3 gap-6 text-sm">
+                <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                    <p class="font-bold text-gray-800 mb-1">1. Materials Deposit (Due at Signing)</p>
+                    <p class="text-xs text-gray-600 mb-2">100% of Materials, Tax & Delivery.</p>
+                    <p class="text-xl font-bold text-indigo-600" id="deposit-materials">$0.00</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                    <p class="font-bold text-gray-800 mb-1">2. Project Start (Due Before Work)</p>
+                    <p class="text-xs text-gray-600 mb-2">30% of Labor Services.</p>
+                    <p class="text-xl font-bold text-indigo-600" id="deposit-start">$0.00</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                    <p class="font-bold text-gray-800 mb-1">3. Completion (Due at Finish)</p>
+                    <p class="text-xs text-gray-600 mb-2">Remaining 70% of Labor.</p>
+                    <p class="text-xl font-bold text-gray-800" id="balance-amount">$0.00</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-8 grid sm:grid-cols-2 gap-8">
+            <div>
+                <label for="client-name" class="block text-sm font-medium text-gray-700">Client Printed Name</label>
+                <input type="text" id="client-name" placeholder="Kay Thompson" class="mt-1 block w-full bg-gray-100 px-3 py-2 border border-gray-400 rounded-md">
+            </div>
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                <input type="date" id="date" class="mt-1 block w-full bg-gray-100 px-3 py-2 border border-gray-400 rounded-md">
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <label for="signature-pad" class="block text-sm font-medium text-gray-700">Client Signature</label>
+            <canvas id="signature-pad" width="400" height="150" class="mt-1 w-full sm:w-[400px]"></canvas>
+            <div class="mt-2 sm:w-[400px] text-right">
+                <button onclick="clearSignature()" class="text-sm text-gray-500 hover:text-gray-700 underline no-print">Clear Signature</button>
+            </div>
+        </div>
+
+        <div class="mt-10 pt-6 border-t-2 border-dashed border-gray-300 no-print">
+            <div class="mt-6 flex justify-center space-x-4">
+                <button onclick="window.print()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-colors">
+                    Save as PDF / Print
+                </button>
+            </div>
+        </div>
+        
+        <!-- APPENDIX SECTION -->
+        <div class="mt-12 pt-6 border-t border-gray-300 page-break">
+             <h3 class="text-xl sm:text-2xl font-bold mt-8 mb-4 text-center">APPENDIX: TIMELINE & SPECIFICATIONS</h3>
+             <hr class="my-4 border-gray-300">
+
+             <div class="mb-8">
+                <h4 class="font-bold text-gray-800 mb-4 bg-gray-100 p-2 rounded">Estimated Project Timeline</h4>
+                <div class="border-l-4 border-indigo-400 pl-4 ml-2 space-y-6">
+                    <div class="relative">
+                        <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-indigo-400"></div>
+                        <p class="font-bold text-gray-800">Week 1: Approval & Ordering</p>
+                        <p class="text-sm text-gray-600">Contract signing and Deposit payment received. Door units and locksets ordered immediately. Exterior Cleaning (Power Wash/Windows) scheduled.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
+                        <p class="font-bold text-gray-800">Weeks 2-4: Lead Time</p>
+                        <p class="text-sm text-gray-600">Manufacturing and shipping of door units. (Exterior cleaning services performed during this wait time).</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
+                        <p class="font-bold text-gray-800">Week 5: Delivery & Prep</p>
+                        <p class="text-sm text-gray-600">Doors delivered to site. Rough materials (lumber, trim) sourced.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
+                        <p class="font-bold text-gray-800">Week 6: Installation</p>
+                        <p class="text-sm text-gray-600">Replacement work begins. Duration: Approx 5-7 working days for demo, installation, and finish.</p>
+                    </div>
+                </div>
+             </div>
+
+            <div class="grid sm:grid-cols-2 gap-8 text-sm text-gray-700">
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-2">Scope Clarifications</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Rough Openings:</strong> Project includes adjusting rough openings approx 3" to accommodate standard French Doors.</li>
+                        <li><strong>Squareness:</strong> Correction of "out-of-square" condition noted at basement unit is included.</li>
+                        <li><strong>Trim:</strong> Exterior trim to be Pine to match existing siding style.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-2">Exclusions & Conditions</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Hidden Rot:</strong> Quote assumes sound subfloor. Repair of hidden water damage discovered during demo is billed at $65/hr + materials.</li>
+                        <li><strong>Electrical:</strong> Minor switch relocation included. Major rewiring is excluded.</li>
+                        <li><strong>Painting/Stain:</strong> Application included (labor only). Client supplies paint/stain materials.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        //  CONSTANTS - PRICES
+        // ==========================================
+        const P_POWER_WASH = 850.00;
+        const P_EXT_WINDOWS = 325.00;
+        const P_INT_WINDOWS = 250.00;
+        const P_DOOR_LABOR = 4500.00;
+        const P_PAINTING = 900.00; // $300 x 3 Doors
+        
+        // Door Materials (3 Units: 1x 60", 2x 72")
+        const P_DOOR_A = 7996.53; // Jeld-Wen (Steel)
+        const P_DOOR_B = 6439.53; // MMI (Fiberglass)
+
+        // Lockset Materials (3 Units) + Install ($225 Labor)
+        // Option A: Montara ($139 * 3) + $225 = $642
+        const P_LOCKS_A_TOTAL = 642.00; 
+        const P_LOCKS_A_MAT = 417.00; // Material Portion for Deposit
+
+        // Option B: San Clemente ($166 * 3) + $225 = $723
+        const P_LOCKS_B_TOTAL = 723.00;
+        const P_LOCKS_B_MAT = 498.00; // Material Portion for Deposit
+
+        const CC_FEE_RATE = 0.04;
+        const LABOR_DEPOSIT_PCT = 0.30;
+        
+        // ADDED FEES
+        const P_DELIVERY = 200.00;
+        const TAX_RATE = 0.07; // 7% NC Tax on Materials
+        // ==========================================
+
+        // DOM Elements
+        const elPowerWash = document.getElementById('srv-powerwash');
+        const elExtWin = document.getElementById('srv-ext-windows');
+        const elIntWin = document.getElementById('srv-int-windows');
+        const elDoorLabor = document.getElementById('srv-door-labor');
+        const elPainting = document.getElementById('srv-painting');
+        
+        const elDoorA = document.getElementById('door-option-a');
+        const elDoorB = document.getElementById('door-option-b');
+        
+        const elLockA = document.getElementById('lock-option-a');
+        const elLockB = document.getElementById('lock-option-b');
+        const elLockNone = document.getElementById('lock-option-none');
+
+        const elDoorContainer = document.getElementById('door-selection-container');
+        const elCC = document.getElementById('use-credit-card');
+        
+        const displayTotal = document.getElementById('total-price');
+        
+        // New Payment Schedule Elements
+        const displayDepositMat = document.getElementById('deposit-materials');
+        const displayDepositStart = document.getElementById('deposit-start');
+        const displayBalance = document.getElementById('balance-amount');
+
+        // Breakdown Elements
+        const displayBreakSub = document.getElementById('breakdown-subtotal');
+        const displayBreakTax = document.getElementById('breakdown-tax');
+        const displayBreakDel = document.getElementById('breakdown-delivery');
+        const displayBreakCC = document.getElementById('breakdown-cc');
+        const rowCC = document.getElementById('row-cc-fee');
+
+        // Init Prices in UI
+        document.getElementById('display-price-door-a').innerText = fmt(P_DOOR_A);
+        document.getElementById('display-price-door-b').innerText = fmt(P_DOOR_B);
+        document.getElementById('display-price-lock-a').innerText = fmt(P_LOCKS_A_TOTAL);
+        document.getElementById('display-price-lock-b').innerText = fmt(P_LOCKS_B_TOTAL);
+
+        function fmt(num) {
+            return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function toggleDoorOptions() {
+            if (elDoorLabor.checked) {
+                elDoorContainer.classList.remove('opacity-50', 'pointer-events-none');
+                // Auto-Select defaults if null
+                if (!elDoorA.checked && !elDoorB.checked) elDoorA.checked = true;
+                if (!elLockA.checked && !elLockB.checked && !elLockNone.checked) elLockA.checked = true;
+            } else {
+                elDoorContainer.classList.add('opacity-50', 'pointer-events-none');
+                elDoorA.checked = false;
+                elDoorB.checked = false;
+                elLockA.checked = false;
+                elLockB.checked = false;
+                elLockNone.checked = false;
+            }
+            updateProposal();
+        }
+
+        function togglePaintingOptions() {
+            const container = document.getElementById('painting-options');
+            if (elPainting.checked) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+            updateProposal();
+        }
+
+        function selectDoor(opt) {
+            elDoorA.checked = (opt === 'A');
+            elDoorB.checked = (opt === 'B');
+            updateProposal();
+        }
+
+        function selectLock(opt) {
+            elLockA.checked = (opt === 'A');
+            elLockB.checked = (opt === 'B');
+            elLockNone.checked = (opt === 'NONE');
+            updateProposal();
+        }
+
+        function updateProposal() {
+            let laborTotal = 0;
+            let materialTotal = 0;
+
+            // Labor Services (Base)
+            if (elPowerWash.checked) laborTotal += P_POWER_WASH;
+            if (elExtWin.checked) laborTotal += P_EXT_WINDOWS;
+            if (elIntWin.checked) laborTotal += P_INT_WINDOWS;
+            if (elDoorLabor.checked) laborTotal += P_DOOR_LABOR;
+            if (elPainting.checked) laborTotal += P_PAINTING;
+
+            // Door Options (Materials)
+            if (elDoorLabor.checked) {
+                if (elDoorA.checked) materialTotal += P_DOOR_A;
+                if (elDoorB.checked) materialTotal += P_DOOR_B;
+                
+                // Locks (Hybrid Material + Labor)
+                if (elLockA.checked) {
+                     materialTotal += P_LOCKS_A_MAT; 
+                     laborTotal += (P_LOCKS_A_TOTAL - P_LOCKS_A_MAT); 
+                }
+                if (elLockB.checked) {
+                     materialTotal += P_LOCKS_B_MAT;
+                     laborTotal += (P_LOCKS_B_TOTAL - P_LOCKS_B_MAT);
+                }
+            }
+
+            // Calculate Fees
+            let deliveryFee = 0;
+            let materialTax = 0;
+            
+            // Apply fees only if materials are bought (Door Labor checked implies doors are bought)
+            if (elDoorLabor.checked && materialTotal > 0) {
+                deliveryFee = P_DELIVERY;
+                materialTax = materialTotal * TAX_RATE;
+            }
+
+            let subTotal = laborTotal + materialTotal;
+            let grandTotal = subTotal + deliveryFee + materialTax;
+
+            // Credit Card Fee Calculation
+            let ccFeeAmt = 0;
+            if (elCC.checked) {
+                ccFeeAmt = grandTotal * CC_FEE_RATE;
+                grandTotal += ccFeeAmt;
+                rowCC.classList.remove('hidden');
+            } else {
+                rowCC.classList.add('hidden');
+            }
+
+            // ----------------------------------------------------
+            // NEW 3-STAGE PAYMENT SCHEDULE LOGIC
+            // ----------------------------------------------------
+            
+            // 1. Materials Deposit (100% of Mats + Tax + Delivery)
+            let depositMaterials = materialTotal + materialTax + deliveryFee;
+            
+            // 2. Start Payment (30% of Labor)
+            let depositStart = laborTotal * 0.30;
+            
+            // 3. Balance (70% of Labor)
+            let finalBalance = laborTotal * 0.70;
+
+            // Handle Credit Card Fee Distribution
+            // If paying with CC, the fee increases the TOTAL. 
+            // We apply the fee proportionately to each payment stage or just add it to the first?
+            // Standard practice: Apply fee proportionately to each charge.
+            if (elCC.checked) {
+                depositMaterials = depositMaterials * (1 + CC_FEE_RATE);
+                depositStart = depositStart * (1 + CC_FEE_RATE);
+                finalBalance = finalBalance * (1 + CC_FEE_RATE);
+            }
+
+            // Update UI
+            displayTotal.innerText = fmt(grandTotal);
+            
+            displayDepositMat.innerText = fmt(depositMaterials);
+            displayDepositStart.innerText = fmt(depositStart);
+            displayBalance.innerText = fmt(finalBalance);
+            
+            // Update Breakdown
+            displayBreakSub.innerText = fmt(subTotal);
+            displayBreakTax.innerText = fmt(materialTax);
+            displayBreakDel.innerText = fmt(deliveryFee);
+            displayBreakCC.innerText = fmt(ccFeeAmt);
+        }
+
+        // Initialize
+        toggleDoorOptions();
+        
+        // --- Signature Pad (Standard Logic) ---
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        function resizeCanvas() {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            ctx.scale(ratio, ratio);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        setTimeout(resizeCanvas, 200);
+        function start(e) { drawing = true; draw(e); }
+        function stop() { drawing = false; ctx.beginPath(); }
+        function draw(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            e.preventDefault();
+        }
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mouseup', stop);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', start, {passive: false});
+        canvas.addEventListener('touchend', stop);
+        canvas.addEventListener('touchmove', draw, {passive: false});
+        function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    </script>
+</body>
+</html>
