@@ -73,7 +73,7 @@
                 <label class="flex items-start cursor-pointer">
                     <input type="checkbox" id="srv-powerwash" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
                     <span class="ml-4 flex-1">
-                        <span class="text-lg font-semibold text-gray-900 block">Exterior Soft Wash & Deck Restoration</span>
+                        <span class="text-lg font-semibold text-gray-900 block">Exterior Soft Wash & Deck Cleaning</span>
                         <span class="text-gray-600 text-sm block mt-1">Soft wash cabin exterior (protecting wood grain) and pressure wash deck floorboards and railings.</span>
                         <span class="text-lg font-bold text-gray-700 mt-2 block">$850.00</span>
                     </span>
@@ -86,7 +86,7 @@
                     <input type="checkbox" id="srv-ext-windows" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
                     <span class="ml-4 flex-1">
                         <span class="text-lg font-semibold text-gray-900 block">Exterior Window Cleaning</span>
-                        <span class="text-gray-600 text-sm block mt-1">Clean exterior glass of remaining house windows (including high gable glass).</span>
+                        <span class="text-gray-600 text-sm block mt-1">Clean all exterior glass surfaces on the house.</span>
                         <span class="text-lg font-bold text-gray-700 mt-2 block">$325.00</span>
                     </span>
                 </label>
@@ -98,7 +98,7 @@
                     <input type="checkbox" id="srv-int-windows" class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500" onchange="updateProposal()">
                     <span class="ml-4 flex-1">
                         <span class="text-lg font-semibold text-gray-900 block">Interior Window Cleaning</span>
-                        <span class="text-gray-600 text-sm block mt-1">Clean interior glass surfaces, wipe sills, and vacuum tracks.</span>
+                        <span class="text-gray-600 text-sm block mt-1">Clean interior window glass surfaces only.</span>
                         <span class="text-lg font-bold text-gray-700 mt-2 block">$250.00</span>
                     </span>
                 </label>
@@ -132,6 +132,7 @@
                                 <span class="ml-3 flex-1">
                                     <span class="font-semibold text-gray-800">Option A: Jeld-Wen (Steel)</span>
                                     <span class="text-xs text-gray-500 block">Premium Steel Construction, White.</span>
+                                    <span class="text-xs text-gray-500 block">Includes internal blinds between the glass.</span>
                                     <div class="mt-1 text-xs text-blue-600 hover:underline">
                                          <a href="https://www.lowes.com/pd/JELD-WEN-Blinds-Between-The-Glass-Arctic-White-Steel-Right-Hand-Inswing-Double-Door-French-Patio-Door-Common-72-in-x-80-in-Actual-71-5-in-x-79-5625-in/50248803" target="_blank" onclick="event.stopPropagation()">View Specs</a>
                                     </div>
@@ -145,7 +146,8 @@
                                 <input type="radio" name="door_choice" id="door-option-b" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
                                 <span class="ml-3 flex-1">
                                     <span class="font-semibold text-gray-800">Option B: MMI Door (Fiberglass Upgrade)</span>
-                                    <span class="text-xs text-gray-500 block">Primed Fiberglass (Dent Resistant). Includes internal blinds.</span>
+                                    <span class="text-xs text-gray-500 block">Primed Fiberglass (Dent Resistant). Subsidiary of Jeld-Wen.</span>
+                                    <span class="text-xs text-gray-500 block">Features the requested center-hinge single active panel configuration. Includes internal blinds between the glass.</span>
                                     <div class="mt-1 text-xs text-blue-600 hover:underline">
                                         <a href="https://www.lowes.com/pd/MMI-DOOR-Internal-Mini-Blinds-Blinds-Between-The-Glass-Fiberglass-Left-Hand-Inswing-Double-Door-Center-Hinged-Patio-Door-with-Screen-Common-72-in-x-80-in-Actual-75-in-x-81-75-in/1000343811" target="_blank" onclick="event.stopPropagation()">View Specs</a>
                                     </div>
@@ -329,17 +331,17 @@
                     </div>
                     <div class="relative">
                         <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
-                        <p class="font-bold text-gray-800">Weeks 2-4: Lead Time</p>
-                        <p class="text-sm text-gray-600">Manufacturing and shipping of door units. (Exterior cleaning services performed during this wait time).</p>
+                        <p class="font-bold text-gray-800">Weeks 2-7: Manufacturing Lead Time</p>
+                        <p class="text-sm text-gray-600">Door units typically have a 4-6 week lead time. (Exterior cleaning services performed during this wait time).</p>
                     </div>
                     <div class="relative">
                         <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
-                        <p class="font-bold text-gray-800">Week 5: Delivery & Prep</p>
+                        <p class="font-bold text-gray-800">Week 8: Delivery & Prep</p>
                         <p class="text-sm text-gray-600">Doors delivered to site. Rough materials (lumber, trim) sourced.</p>
                     </div>
                     <div class="relative">
                         <div class="absolute -left-6 mt-1.5 h-3 w-3 rounded-full bg-gray-300"></div>
-                        <p class="font-bold text-gray-800">Week 6: Installation</p>
+                        <p class="font-bold text-gray-800">Week 9: Installation</p>
                         <p class="text-sm text-gray-600">Replacement work begins. Duration: Approx 5-7 working days for demo, installation, and finish.</p>
                     </div>
                 </div>
@@ -355,11 +357,12 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-800 mb-2">Exclusions & Conditions</h4>
+                    <h4 class="font-bold text-gray-800 mb-2">Conditions & Exclusions</h4>
                     <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Product Availability:</strong> All quoted materials are subject to availability at time of order. If specific items become unavailable, we reserve the right to propose a comparable substitute (price adjustments may apply) or refund the material deposit for that item.</li>
                         <li><strong>Hidden Rot:</strong> Quote assumes sound subfloor. Repair of hidden water damage discovered during demo is billed at $65/hr + materials.</li>
                         <li><strong>Electrical:</strong> Minor switch relocation included. Major rewiring is excluded.</li>
-                        <li><strong>Painting/Stain:</strong> Application included (labor only). Client supplies paint/stain materials.</li>
+                        <li><strong>Painting/Stain:</strong> Application included only if selected in services menu. Otherwise, client supplies paint/stain materials.</li>
                     </ul>
                 </div>
             </div>
