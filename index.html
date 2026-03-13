@@ -127,13 +127,13 @@
                 <div id="door-selection-container" class="mt-6 pl-4 border-l-2 border-indigo-300 ml-2">
                     
                     <!-- DOORS -->
-                    <p class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-3">1. Select Door Units (Required)</p>
+                    <p class="text-sm font-bold text-indigo-800 uppercase tracking-wide mb-3">1. Door Unit Specifications</p>
                     <div class="space-y-3 mb-6">
-                        <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectDoor('A')">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="door_choice" id="door-option-a" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                        <div class="p-3 bg-white rounded border-2 border-indigo-400 cursor-default">
+                            <label class="flex items-center">
+                                <input type="radio" name="door_choice" id="door-option-a" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500" onclick="return false;">
                                 <span class="ml-3 flex-1">
-                                    <span class="font-semibold text-gray-800">Option A: Jeld-Wen (Black Steel)</span>
+                                    <span class="font-semibold text-gray-800">Jeld-Wen (Black Steel)</span>
                                     <span class="text-xs text-gray-500 block">Premium Black Steel Construction. Arrives Pre-Painted (Black).</span>
                                     <span class="text-xs text-gray-500 block">Includes internal blinds between the glass.</span>
                                     <div class="mt-1 text-xs text-blue-600 hover:underline">
@@ -141,21 +141,6 @@
                                     </div>
                                 </span>
                                 <span id="display-price-door-a" class="font-bold text-gray-700">$0.00</span>
-                            </label>
-                        </div>
-
-                        <div class="p-3 bg-white rounded border border-gray-300 hover:border-indigo-400 cursor-pointer" onclick="selectDoor('B')">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="door_choice" id="door-option-b" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-3 flex-1">
-                                    <span class="font-semibold text-gray-800">Option B: MMI Door (Fiberglass Upgrade)</span>
-                                    <span class="text-xs text-gray-500 block">Primed Fiberglass (Dent Resistant). Subsidiary of Jeld-Wen.</span>
-                                    <span class="text-xs text-gray-500 block">Features the requested center-hinge single active panel configuration. Includes internal blinds between the glass.</span>
-                                    <div class="mt-1 text-xs text-blue-600 hover:underline">
-                                        <a href="https://www.lowes.com/pd/MMI-DOOR-Internal-Mini-Blinds-Blinds-Between-The-Glass-Fiberglass-Left-Hand-Inswing-Double-Door-Center-Hinged-Patio-Door-with-Screen-Common-72-in-x-80-in-Actual-75-in-x-81-75-in/1000343811" target="_blank" onclick="event.stopPropagation()">View Specs</a>
-                                    </div>
-                                </span>
-                                <span id="display-price-door-b" class="font-bold text-gray-700">$0.00</span>
                             </label>
                         </div>
                     </div>
@@ -361,7 +346,7 @@
                         <li><strong>Product Availability:</strong> All quoted materials are subject to availability at time of order. If specific items become unavailable, we reserve the right to propose a comparable substitute (price adjustments may apply) or refund the material deposit for that item.</li>
                         <li><strong>Hidden Rot:</strong> Quote assumes sound subfloor. Repair of hidden water damage discovered during demo is billed at $65/hr + materials.</li>
                         <li><strong>Electrical:</strong> Minor switch relocation included. Major rewiring is excluded.</li>
-                        <li><strong>Painting/Stain:</strong> The Jeld-Wen steel door panels arrive pre-painted black from the factory (no panel painting needed). If the MMI Fiberglass doors are selected, the door panels themselves arrive primed only; painting the MMI door panels is not included and is the responsibility of the client.</li>
+                        <li><strong>Painting/Stain:</strong> The Jeld-Wen steel door panels arrive pre-painted black from the factory (no panel painting needed). Painting of the exterior jambs and trim is included. Client supplies any paint/stain materials if interior casing painting is desired.</li>
                     </ul>
                 </div>
             </div>
@@ -379,7 +364,6 @@
         
         // Door Materials (3 Units calculated)
         const P_DOOR_A = 6930.33; // Jeld-Wen (Black Steel): 3 * $2,310.11
-        const P_DOOR_B = 6439.53; // MMI (Fiberglass)
 
         // Lockset Materials (3 Units) + Install ($225 Labor)
         // Option A: Montara ($139 * 3) + $225 = $642
@@ -405,7 +389,6 @@
         const elDoorLabor = document.getElementById('srv-door-labor');
         
         const elDoorA = document.getElementById('door-option-a');
-        const elDoorB = document.getElementById('door-option-b');
         
         const elLockA = document.getElementById('lock-option-a');
         const elLockB = document.getElementById('lock-option-b');
@@ -430,7 +413,6 @@
 
         // Init Prices in UI
         document.getElementById('display-price-door-a').innerText = fmt(P_DOOR_A);
-        document.getElementById('display-price-door-b').innerText = fmt(P_DOOR_B);
         document.getElementById('display-price-lock-a').innerText = fmt(P_LOCKS_A_TOTAL);
         document.getElementById('display-price-lock-b').innerText = fmt(P_LOCKS_B_TOTAL);
 
@@ -441,23 +423,15 @@
         function toggleDoorOptions() {
             if (elDoorLabor.checked) {
                 elDoorContainer.classList.remove('opacity-50', 'pointer-events-none');
-                // Auto-Select defaults if null
-                if (!elDoorA.checked && !elDoorB.checked) elDoorA.checked = true;
+                elDoorA.checked = true; // Always select the only door option
                 if (!elLockA.checked && !elLockB.checked && !elLockNone.checked) elLockB.checked = true; // Auto-select Black Hardware
             } else {
                 elDoorContainer.classList.add('opacity-50', 'pointer-events-none');
                 elDoorA.checked = false;
-                elDoorB.checked = false;
                 elLockA.checked = false;
                 elLockB.checked = false;
                 elLockNone.checked = false;
             }
-            updateProposal();
-        }
-
-        function selectDoor(opt) {
-            elDoorA.checked = (opt === 'A');
-            elDoorB.checked = (opt === 'B');
             updateProposal();
         }
 
@@ -481,7 +455,6 @@
             // Door Options (Materials)
             if (elDoorLabor.checked) {
                 if (elDoorA.checked) materialTotal += P_DOOR_A;
-                if (elDoorB.checked) materialTotal += P_DOOR_B;
                 
                 // Locks (Hybrid Material + Labor)
                 if (elLockA.checked) {
